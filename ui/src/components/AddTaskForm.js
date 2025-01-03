@@ -4,13 +4,11 @@ import { Button, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import axios from "axios";
 import { API_URL } from "../utils";
-import { fetchTasks } from "../../../api/task";
 
 export const AddTaskForm = ({ fetchTasks }) => {
-  const [newTask, setNewTask] = useState("second");
+  const [newTask, setNewTask] = useState("");
 
   const addNewTask = async () => {
-    
     try {
       await axios.post(API_URL, {
         name: newTask,
@@ -19,30 +17,29 @@ export const AddTaskForm = ({ fetchTasks }) => {
 
       await fetchTasks();
 
-      setNewTask(""); 
-    } catch (error) {
-      console.log(error); 
+      setNewTask("");
+    } catch (err) {
+      console.log(err);
     }
   };
 
   return (
     <div>
       <Typography align="center" variant="h2" paddingTop={2} paddingBottom={2}>
-        My Task list
+        My Task List
       </Typography>
-      <div className="AddTaskForm">
+      <div className="addTaskForm">
         <TextField
           size="small"
           label="Task"
           variant="outlined"
           value={newTask}
-          onChange={(e) => setNewTask(e.target.value)} 
+          onChange={(e) => setNewTask(e.target.value)}
         />
-
         <Button
-          disabled={!newTask.length} 
+          disabled={!newTask.length}
           variant="outlined"
-          onClick={addNewTask} 
+          onClick={addNewTask}
         >
           <AddIcon />
         </Button>
